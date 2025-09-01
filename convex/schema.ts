@@ -6,7 +6,7 @@ export default defineSchema({
     name: v.string(),
   }),
   audios: defineTable({
-    slug: v.string(),
-    project: v.id('users'),
+    storageId: v.string(),
+    project: v.id('projects'),
   }),
 })

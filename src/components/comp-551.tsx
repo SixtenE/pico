@@ -24,31 +24,6 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-// Create some dummy initial files
-const initialFiles = [
-  {
-    name: 'document.pdf',
-    size: 528737,
-    type: 'application/pdf',
-    url: 'https://originui.com',
-    id: 'document.pdf-1744638436563-8u5xuls',
-  },
-  {
-    name: 'intro.zip',
-    size: 252873,
-    type: 'application/zip',
-    url: 'https://originui.com',
-    id: 'intro.zip-1744638436563-8u5xuls',
-  },
-  {
-    name: 'conclusion.xlsx',
-    size: 352873,
-    type: 'application/xlsx',
-    url: 'https://originui.com',
-    id: 'conclusion.xlsx-1744638436563-8u5xuls',
-  },
-]
-
 const getFileIcon = (file: { file: File | { type: string; name: string } }) => {
   const fileType = file.file instanceof File ? file.file.type : file.file.type
   const fileName = file.file instanceof File ? file.file.name : file.file.name
@@ -104,11 +79,12 @@ export default function Component() {
     multiple: true,
     maxFiles,
     maxSize,
-    initialFiles: [],
+    accept: 'audio/*',
+    onFilesAdded: (addedFiles) => console.log(addedFiles),
   })
 
   return (
-    <div className="flex flex-col gap-2 max-w-xl mx-auto">
+    <div className="flex flex-col gap-2 mx-auto">
       {/* Drop area */}
       <div
         onDragEnter={handleDragEnter}

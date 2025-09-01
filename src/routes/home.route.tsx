@@ -76,7 +76,7 @@ function RouteComponent() {
             <h1 className="text-2xl font-bold">Vibedrop</h1>
           </div>
           <div className="flex-1 overflow-y-auto px-6 pb-6">
-            <nav className="space-y-2 mb-8">
+            <nav className="space-y-2 mb-8 mt-1">
               {sidebarLinks.slice(0, 3).map((link) => (
                 <Link
                   key={link.title}

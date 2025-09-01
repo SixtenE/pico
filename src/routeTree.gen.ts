@@ -9,12 +9,24 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TabsRouteImport } from './routes/tabs'
 import { Route as HomeRouteRouteImport } from './routes/home.route'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as HomeIndexRouteImport } from './routes/home.index'
 
+const TabsRoute = TabsRouteImport.update({
+  id: '/tabs',
+  path: '/tabs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HomeRouteRoute = HomeRouteRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HomeIndexRoute = HomeIndexRouteImport.update({
@@ -24,36 +36,58 @@ const HomeIndexRoute = HomeIndexRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/home': typeof HomeRouteRouteWithChildren
+  '/tabs': typeof TabsRoute
   '/home/': typeof HomeIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/tabs': typeof TabsRoute
   '/home': typeof HomeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/home': typeof HomeRouteRouteWithChildren
+  '/tabs': typeof TabsRoute
   '/home/': typeof HomeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/home' | '/home/'
+  fullPaths: '/' | '/home' | '/tabs' | '/home/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/home'
-  id: '__root__' | '/home' | '/home/'
+  to: '/' | '/tabs' | '/home'
+  id: '__root__' | '/' | '/home' | '/tabs' | '/home/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   HomeRouteRoute: typeof HomeRouteRouteWithChildren
+  TabsRoute: typeof TabsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tabs': {
+      id: '/tabs'
+      path: '/tabs'
+      fullPath: '/tabs'
+      preLoaderRoute: typeof TabsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/home': {
       id: '/home'
       path: '/home'
       fullPath: '/home'
       preLoaderRoute: typeof HomeRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/home/': {
@@ -79,7 +113,9 @@ const HomeRouteRouteWithChildren = HomeRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   HomeRouteRoute: HomeRouteRouteWithChildren,
+  TabsRoute: TabsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
