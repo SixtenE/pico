@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TiptapRouteImport } from './routes/tiptap'
 import { Route as TabsRouteImport } from './routes/tabs'
 import { Route as HomeRouteRouteImport } from './routes/home.route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HomeIndexRouteImport } from './routes/home.index'
 
+const TiptapRoute = TiptapRouteImport.update({
+  id: '/tiptap',
+  path: '/tiptap',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TabsRoute = TabsRouteImport.update({
   id: '/tabs',
   path: '/tabs',
@@ -39,11 +45,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/home': typeof HomeRouteRouteWithChildren
   '/tabs': typeof TabsRoute
+  '/tiptap': typeof TiptapRoute
   '/home/': typeof HomeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/tabs': typeof TabsRoute
+  '/tiptap': typeof TiptapRoute
   '/home': typeof HomeIndexRoute
 }
 export interface FileRoutesById {
@@ -51,24 +59,33 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/home': typeof HomeRouteRouteWithChildren
   '/tabs': typeof TabsRoute
+  '/tiptap': typeof TiptapRoute
   '/home/': typeof HomeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/home' | '/tabs' | '/home/'
+  fullPaths: '/' | '/home' | '/tabs' | '/tiptap' | '/home/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/tabs' | '/home'
-  id: '__root__' | '/' | '/home' | '/tabs' | '/home/'
+  to: '/' | '/tabs' | '/tiptap' | '/home'
+  id: '__root__' | '/' | '/home' | '/tabs' | '/tiptap' | '/home/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HomeRouteRoute: typeof HomeRouteRouteWithChildren
   TabsRoute: typeof TabsRoute
+  TiptapRoute: typeof TiptapRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tiptap': {
+      id: '/tiptap'
+      path: '/tiptap'
+      fullPath: '/tiptap'
+      preLoaderRoute: typeof TiptapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tabs': {
       id: '/tabs'
       path: '/tabs'
@@ -116,6 +133,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HomeRouteRoute: HomeRouteRouteWithChildren,
   TabsRoute: TabsRoute,
+  TiptapRoute: TiptapRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

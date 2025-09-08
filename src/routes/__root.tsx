@@ -51,7 +51,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="bg-gradient-to-t from-background from-75% to-neutral-900 min-h-screen">
+      <body className="dark:bg-gradient-to-t from-background from-75% to-neutral-900 min-h-screen">
         <ClerkProvider>
           <ConvexProvider>
             {children}

@@ -1,21 +1,17 @@
 import {
-  BoxIcon,
-  ChartLine,
   HouseIcon,
-  Lock,
   MessageCircle,
-  PanelsTopLeftIcon,
   SettingsIcon,
   SquarePen,
-  Upload,
   UsersRoundIcon,
 } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { UploadComp } from '@/routes/home.index'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
+import Tiptap from './Tiptap'
+import { Slider } from './ui/slider'
 
 export default function Component() {
   return (
@@ -94,26 +90,53 @@ export default function Component() {
               Overview
             </CardTitle>
           </CardHeader>
-          <CardContent className="h-64"></CardContent>
+          <CardContent className="">
+            <div className="relative w-3/4">
+              <img
+                src="/wave.svg"
+                alt="Wave"
+                draggable="false"
+                className="w-full pointer-events-none select-none"
+              />
+              <Slider
+                className="absolute top-0 left-0 w-full h-full appearance-none cursor-pointer"
+                defaultValue={[50]}
+                min={0}
+                max={100}
+                step={1}
+              />
+            </div>
+          </CardContent>
         </Card>
       </TabsContent>
       <TabsContent value="tab-2">
         <Card className="text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm bg-zinc-900 border-zinc-800 min-w-md">
           <CardHeader>
             <CardTitle className="leading-none font-semibold flex items-center">
-              Projects
+              Comments
             </CardTitle>
-            <CardContent className="h-64"></CardContent>
           </CardHeader>
+          <CardContent className="grid grid-cols-4">
+            <Card className="bg-muted">
+              <CardHeader>
+                <CardTitle className="leading-none font-semibold flex items-center">
+                  Comment 1
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="">This is a comment.</CardContent>
+            </Card>
+          </CardContent>
         </Card>
       </TabsContent>
       <TabsContent value="tab-3">
         <Card className="text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm bg-zinc-900 border-zinc-800 min-w-md">
           <CardHeader>
             <CardTitle className="leading-none font-semibold flex items-center">
-              Projects
+              Notes
             </CardTitle>
-            <CardContent className="h-64"></CardContent>
+            <CardContent className="">
+              <Tiptap />
+            </CardContent>
           </CardHeader>
         </Card>
       </TabsContent>
@@ -121,21 +144,31 @@ export default function Component() {
         <Card className="text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm bg-zinc-900 border-zinc-800 min-w-md">
           <CardHeader>
             <CardTitle className="leading-none font-semibold flex items-center">
-              Projects
+              Collaborators
             </CardTitle>
-            <CardContent className="h-64"></CardContent>
           </CardHeader>
+          <CardContent className=""></CardContent>
         </Card>
       </TabsContent>
       <TabsContent value="tab-5">
-        <p className="text-muted-foreground pt-1 text-center text-xs">
-          Content for Tab 5
-        </p>
+        <Card className="text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm bg-zinc-900 border-zinc-800 min-w-md">
+          <CardHeader>
+            <CardTitle className="leading-none font-semibold flex items-center">
+              Tab 5
+            </CardTitle>
+          </CardHeader>
+          <CardContent className=""></CardContent>
+        </Card>
       </TabsContent>
       <TabsContent value="tab-6">
-        <p className="text-muted-foreground pt-1 text-center text-xs">
-          Content for Tab 6
-        </p>
+        <Card className="text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm bg-zinc-900 border-zinc-800 min-w-md">
+          <CardHeader>
+            <CardTitle className="leading-none font-semibold flex items-center">
+              Settings
+            </CardTitle>
+          </CardHeader>
+          <CardContent className=""></CardContent>
+        </Card>
       </TabsContent>
     </Tabs>
   )
